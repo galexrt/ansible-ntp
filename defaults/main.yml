@@ -1,3 +1,4 @@
+---
 ntp_servers:
   - 0.de.pool.ntp.org
   - 1.de.pool.ntp.org
