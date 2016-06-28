@@ -1,4 +1,4 @@
-Role Name
+ansible-ntp
 =========
 
 A brief description of the role goes here.
@@ -25,12 +25,12 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: galexrt.ntp }
 
 License
 -------
 
-BSD
+Apache 2.0 License
 
 Author Information
 ------------------
