@@ -1,0 +1,25 @@
+disable monitor
+driftfile /var/lib/ntp/drift
+
+interface ignore wildcard
+{% if hostvars[inventory_hostname].ansible_default_ipv4.address is defined %}
+interface listen {{ hostvars[inventory_hostname].ansible_default_ipv4.address }}
+{% endif %}
+{% if hostvars[inventory_hostname].ansible_default_ipv6.address is defined %}
+interface listen {{ hostvars[inventory_hostname].ansible_default_ipv6.address }}
+{% endif %}
+
+restrict default kod notrap nomodify nopeer noquery
+restrict -4 default kod notrap nomodify nopeer noquery
+restrict -6 default kod notrap nomodify nopeer noquery
+
+restrict 127.0.0.1
+restrict ::1
+
+{% for server in ntp_servers %}
+server {{ server }}
+{% endfor %}
+
+{% if ntp_custom_config is defined %}
+{{ ntp_custom_config }}
+{% endif %}
