@@ -12,3 +12,4 @@ timezone: "UTC"
 
 ntpdate_enabled: true
 ntpdate_server: "0.de.pool.ntp.org"
+ntpdate_runs: 3
