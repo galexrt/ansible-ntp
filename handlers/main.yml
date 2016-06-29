@@ -13,5 +13,3 @@
     enabled: yes
     state: restarted
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
-
-- include: monit.yml
