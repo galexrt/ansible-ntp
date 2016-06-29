@@ -1,0 +1,24 @@
+---
+- name: Get timedatectl information
+  shell: timedatectl
+  register: timedatectl
+
+- name: Get timezone list
+  shell: timedatectl list-timezones --no-pager
+  register: timezone_list
+
+- name: Check if timezone is valid
+  fail: Invalid timezone given.
+  when: timezone not in timezone_list.stdout
+
+- name: Set timezone
+  shell: timedatectl set-timezone {{ timezone }}; timedatectl
+  register: timedatectl_utc
+  changed_when: "'Time zone: UTC' in timedatectl_utc.stdout"
+  when: "'Time zone: UTC' not in timedatectl.stdout"
+
+- name: Set hardware clock to use or not use local RTC
+  shell: "timedatectl set-local-rtc {% if timezone_use_local_rtc %}1{% else %}0{% endif %} && timedatectl || true"
+  register: timedatectl_rtc
+  changed_when: "'RTC in local TZ: {% if timezone_use_local_rtc %}yes{% else %}no{% endif %}' in timedatectl_rtc.stdout"
+  when: timezone_use_local_rtc and 'RTC in local TZ: no' not in timedatectl.stdout

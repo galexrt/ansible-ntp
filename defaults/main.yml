@@ -7,4 +7,5 @@ ntp_servers:
 
 ntp_custom_config: ""
 
-monit_enabled: false
+timezone_use_local_rtc: false
+timezone: "UTC"

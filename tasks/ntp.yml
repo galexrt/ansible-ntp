@@ -1,0 +1,27 @@
+- name: Install ntp package
+  action: "{{ ansible_pkg_mgr }}"
+  args:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+   - ntp
+   - ntpdate
+
+- name: Remove ntpdate package
+  action: "{{ ansible_pkg_mgr }}"
+  args:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+   - ntpdate
+
+- name: Write ntp.conf
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/{{ item }}"
+    mode: 0644
+  with_items:
+    - ntp.conf
+  notify:
+    - restart ntpd (rhel)
+    - restart ntpd (deb)
