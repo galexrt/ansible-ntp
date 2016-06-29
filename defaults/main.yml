@@ -9,3 +9,6 @@ ntp_custom_config: ""
 
 timezone_use_local_rtc: false
 timezone: "UTC"
+
+ntpdate_enabled: true
+ntpdate_server: "0.de.pool.ntp.org"

@@ -8,7 +8,8 @@
   register: timezone_list
 
 - name: Check if timezone is valid
-  fail: Invalid timezone given.
+  fail:
+    msg: Invalid timezone given, given timezone is "{{ timezone }}".
   when: timezone not in timezone_list.stdout
 
 - name: Set timezone
@@ -21,4 +22,4 @@
   shell: "timedatectl set-local-rtc {% if timezone_use_local_rtc %}1{% else %}0{% endif %} && timedatectl || true"
   register: timedatectl_rtc
   changed_when: "'RTC in local TZ: {% if timezone_use_local_rtc %}yes{% else %}no{% endif %}' in timedatectl_rtc.stdout"
-  when: timezone_use_local_rtc and 'RTC in local TZ: no' not in timedatectl.stdout
+  when: "timezone_use_local_rtc and 'RTC in local TZ: no' not in timedatectl_rtc.stdout"

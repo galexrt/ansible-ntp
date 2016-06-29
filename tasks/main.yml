@@ -2,3 +2,6 @@
 - include: timezone.yml
 
 - include: ntp.yml
+
+- include: ntpdate.yml
+  when: ntpdate_enabled
