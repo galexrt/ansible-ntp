@@ -1,4 +1,4 @@
---
+---
 - name: Install ntp package
   action: "{{ ansible_pkg_mgr }}"
   args:
