@@ -1,5 +1,6 @@
 ---
 ntp_use_inventory_as_servers: false
+# TODO Make this a list
 ntp_use_group_as_servers: false
 ntp_servers:
   - 0.de.pool.ntp.org
