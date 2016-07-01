@@ -21,8 +21,10 @@ restrict ::1
 server {{ server }}
 {% endfor %}
 {% elif ntp_use_group_as_servers != false %}
-{% for server in groups[ntp_use_group_as_servers] %}
+{% for group_name in ntp_use_group_as_servers %}
+{% for server in groups[group_name] %}
 server {{ server }}
+{% endfor %}
 {% endfor %}
 {% else %}
 {% for server in ntp_servers %}
