@@ -20,6 +20,10 @@ restrict ::1
 {% for server in groups.all %}
 server {{ server }}
 {% endfor %}
+{% elif ntp_use_group_as_servers != false %}
+{% for server in groups[ntp_use_group_as_servers] %}
+server {{ server }}
+{% endfor %}
 {% else %}
 {% for server in ntp_servers %}
 server {{ server }}
