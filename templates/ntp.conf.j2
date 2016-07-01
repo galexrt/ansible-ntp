@@ -2,10 +2,10 @@ disable monitor
 driftfile /var/lib/ntp/drift
 
 interface ignore wildcard
-{% if hostvars[inventory_hostname].ansible_default_ipv4.address is defined %}
+{% if ntp_listen_on_v4 and hostvars[inventory_hostname].ansible_default_ipv4.address is defined %}
 interface listen {{ hostvars[inventory_hostname].ansible_default_ipv4.address }}
 {% endif %}
-{% if hostvars[inventory_hostname].ansible_default_ipv6.address is defined %}
+{% if ntp_listen_on_v6 and hostvars[inventory_hostname].ansible_default_ipv6.address is defined %}
 interface listen {{ hostvars[inventory_hostname].ansible_default_ipv6.address }}
 {% endif %}
 
@@ -16,9 +16,15 @@ restrict -6 default kod notrap nomodify nopeer noquery
 restrict 127.0.0.1
 restrict ::1
 
+{% if ntp_use_inventory_as_servers %}
+{% for server in groups.all %}
+server {{ server }}
+{% endfor %}
+{% else %}
 {% for server in ntp_servers %}
 server {{ server }}
 {% endfor %}
+{% endif %}
 
 {% if ntp_custom_config is defined %}
 {{ ntp_custom_config }}
