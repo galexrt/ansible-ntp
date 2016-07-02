@@ -11,6 +11,10 @@ ntp_servers:
 ntp_listen_on_v4: true
 ntp_listen_on_v6: true
 ntp_custom_config: ""
+ntp_allow_inventory_to_query: true
+ntp_clients_access: []
+#  - name: HOSTNAME
+#    access: "" # or "nomodify notrap" etc.
 
 timezone_use_local_rtc: false
 timezone: "UTC"

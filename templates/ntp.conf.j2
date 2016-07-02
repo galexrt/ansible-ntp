@@ -1,21 +1,3 @@
-disable monitor
-driftfile /var/lib/ntp/drift
-
-interface ignore wildcard
-{% if ntp_listen_on_v4 and hostvars[inventory_hostname].ansible_default_ipv4.address is defined %}
-interface listen {{ hostvars[inventory_hostname].ansible_default_ipv4.address }}
-{% endif %}
-{% if ntp_listen_on_v6 and hostvars[inventory_hostname].ansible_default_ipv6.address is defined %}
-interface listen {{ hostvars[inventory_hostname].ansible_default_ipv6.address }}
-{% endif %}
-
-restrict default kod notrap nomodify nopeer noquery
-restrict -4 default kod notrap nomodify nopeer noquery
-restrict -6 default kod notrap nomodify nopeer noquery
-
-restrict 127.0.0.1
-restrict ::1
-
 {% if ntp_use_inventory_as_servers %}
 {% for server in groups.all %}
 server {{ server }}
@@ -31,6 +13,36 @@ server {{ server }}
 server {{ server }}
 {% endfor %}
 {% endif %}
+server  127.127.1.0
+fudge   127.127.1.0 stratum 10
+
+disable monitor
+driftfile /var/lib/ntp/drift
+
+interface ignore wildcard
+{% if ntp_listen_on_v4 and hostvars[inventory_hostname].ansible_default_ipv4.address is defined %}
+interface listen {{ hostvars[inventory_hostname].ansible_default_ipv4.address }}
+{% endif %}
+{% if ntp_listen_on_v6 and hostvars[inventory_hostname].ansible_default_ipv6.address is defined %}
+interface listen {{ hostvars[inventory_hostname].ansible_default_ipv6.address }}
+{% endif %}
+
+restrict default kod notrap nomodify nopeer noquery
+restrict -4 default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
+
+restrict 127.0.0.1
+restrict ::1
+
+{% if ntp_allow_inventory_to_query %}
+{% for server in groups.all %}
+restrict {{ server }} nomodify notrap
+{% endfor %}
+{% endif %}
+
+{% for server in ntp_clients_access %}
+restrict {{ server.name }} {{ server.access }}
+{% endfor %}
 
 {% if ntp_custom_config is defined %}
 {{ ntp_custom_config }}
