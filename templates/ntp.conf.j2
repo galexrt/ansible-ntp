@@ -40,10 +40,11 @@ restrict ::1
 
 {% if ntp_allow_inventory_to_query %}
 {% for server in groups.all %}
+{% if server != inventory_hostname %}
 restrict {{ server }} nomodify notrap
+{% endif %}
 {% endfor %}
 {% endif %}
-
 {% for server in ntp_clients_access %}
 restrict {{ server.name }} {{ server.access }}
 {% endfor %}
