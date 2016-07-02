@@ -1,11 +1,15 @@
 {% if ntp_use_inventory_as_servers %}
 {% for server in groups.all %}
+{% if server != inventory_hostname %}
 server {{ server }}
+{% endif %}
 {% endfor %}
 {% elif ntp_use_group_as_servers != false %}
 {% for group_name in ntp_use_group_as_servers %}
 {% for server in groups[group_name] %}
+{% if server != inventory_hostname %}
 server {{ server }}
+{% endif %}
 {% endfor %}
 {% endfor %}
 {% else %}
@@ -43,7 +47,7 @@ restrict {{ server }} nomodify notrap
 {% for server in ntp_clients_access %}
 restrict {{ server.name }} {{ server.access }}
 {% endfor %}
-
 {% if ntp_custom_config is defined %}
+
 {{ ntp_custom_config }}
 {% endif %}
