@@ -9,6 +9,10 @@ server {{ server }}
 {% for server in groups[group_name] %}
 {% if server != inventory_hostname %}
 server {{ server }}
+{% else %}
+{% for server in ntp_servers %}
+server {{ server }}
+{% endfor %}
 {% endif %}
 {% endfor %}
 {% endfor %}
