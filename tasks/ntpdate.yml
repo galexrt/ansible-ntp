@@ -1,5 +1,5 @@
 ---
-- name: Install ntp package
+- name: Install ntpdate package
   action: "{{ ansible_pkg_mgr }}"
   args:
     name: "{{ item }}"
