@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Alexander Trost aka Galexrt
+  author: Alexander Trost aka galexrt
   description: Ansible NTP client basic setup role.
   company:
 

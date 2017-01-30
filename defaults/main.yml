@@ -16,9 +16,6 @@ ntp_clients_access: []
 #  - name: HOSTNAME
 #    access: "" # or "nomodify notrap" etc.
 
-timezone_use_local_rtc: false
-timezone: "UTC"
-
-ntpdate_enabled: true
+ntpdate_run: true
 ntpdate_server: "0.de.pool.ntp.org"
 ntpdate_runs: 3

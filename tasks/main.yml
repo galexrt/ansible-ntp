@@ -1,7 +1,30 @@
 ---
-- include: timezone.yml
+- name: Install ntp package
+  action: "{{ ansible_pkg_mgr }}"
+  args:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+   - ntp
 
-- include: ntp.yml
+- name: Write ntp.conf
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/{{ item }}"
+    mode: 0644
+  with_items:
+    - ntp.conf
+  notify:
+    - enable and restart ntpd (rhel)
+    - enable and restart ntpd (deb)
+
+- name: Create ntp driftfile folder
+  file:
+    state: directory
+    path: /var/lib/ntp
+    mode: 0644
+    owner: ntp
+    group: ntp
 
 - include: ntpdate.yml
-  when: ntpdate_enabled
+  when: ntpdate_run
