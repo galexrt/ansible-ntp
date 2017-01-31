@@ -9,6 +9,7 @@ ntp_servers:
   - 2.pool.ntp.org
   - 3.pool.ntp.org
 
+# listen on ipv4 and/or ipv6
 ntp_listen_on_v4: true
 ntp_listen_on_v6: true
 
@@ -20,4 +21,5 @@ ntp_clients: []
 
 ntp_driftfile_directory: "/var/lib/ntp"
 
+# for custom configuration
 ntp_custom_config: ""

@@ -154,7 +154,7 @@ galaxy_info:
     - jessie
   #  - lenny
     - sid
-    - squeeze
+  #  - squeeze
     - stretch
     - wheezy
 
