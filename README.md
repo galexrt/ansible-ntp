@@ -1,5 +1,5 @@
 ansible-ntp
-=========
+===========
 
 [![Build Status](https://travis-ci.org/galexrt/ansible-ntp.svg?branch=master)](https://travis-ci.org/galexrt/ansible-ntp)
 
@@ -24,10 +24,11 @@ Example Playbook
 ----------------
 
 To use this role you add the following as the name of the role:
-
-    - hosts: servers
-      roles:
-         - { role: galexrt.ntp }
+```
+- hosts: servers
+  roles:
+    - { role: galexrt.ntp }
+```
 
 License
 -------

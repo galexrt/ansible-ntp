@@ -6,25 +6,26 @@
     state: latest
   with_items:
    - ntp
+  notify:
+    - enable ntpd (rhel)
+    - enable ntp (deb)
+  tags: install
 
 - name: Write ntp.conf
   template:
-    src: "{{ item }}.j2"
-    dest: "/etc/{{ item }}"
+    src: "ntp.conf.j2"
+    dest: "/etc/ntp.conf"
     mode: 0644
-  with_items:
-    - ntp.conf
   notify:
-    - enable and restart ntpd (rhel)
-    - enable and restart ntpd (deb)
+    - restart ntpd (rhel)
+    - restart ntp (deb)
+  tags: configure
 
 - name: Create ntp driftfile folder
   file:
     state: directory
-    path: /var/lib/ntp
+    path: "{{ ntp_driftfile_directory }}"
     mode: 0644
     owner: ntp
     group: ntp
-
-- include: ntpdate.yml
-  when: ntpdate_run
+  tags: configure

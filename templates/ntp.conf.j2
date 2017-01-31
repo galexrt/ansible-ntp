@@ -4,8 +4,8 @@
 server {{ server }}
 {% endif %}
 {% endfor %}
-{% elif ntp_use_group_as_servers != false %}
-{% for group_name in ntp_use_group_as_servers %}
+{% elif ntp_server_groups != false %}
+{% for group_name in ntp_server_groups %}
 {% for server in groups[group_name] %}
 {% if server != inventory_hostname %}
 server {{ server }}
@@ -41,16 +41,14 @@ restrict -6 default kod nomodify notrap nopeer noquery
 
 restrict 127.0.0.1
 restrict ::1
-
-{% if ntp_allow_inventory_to_query %}
+{% if ntp_clients_inventory_access %}
 {% for server in groups.all %}
-{% if server != inventory_hostname %}
 restrict {{ server }} nomodify notrap
-{% endif %}
 {% endfor %}
 {% endif %}
-{% for server in ntp_clients_access %}
-restrict {{ server.name }} {{ server.access }}
+
+{% for server in ntp_clients %}
+restrict {{ server.name }}{% if server.access is defined %} {{ server.access }}{% endif %}
 {% endfor %}
 {% if ntp_custom_config is defined %}
 
