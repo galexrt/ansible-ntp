@@ -9,9 +9,9 @@ ntp_servers:
   - 2.pool.ntp.org
   - 3.pool.ntp.org
 
-# listen on ipv4 and/or ipv6
-ntp_listen_on_v4: true
-ntp_listen_on_v6: true
+# listen on default ipv4 and/or ipv6 address(es)
+ntp_listen_on_default_v4: true
+ntp_listen_on_default_v6: true
 
 # allow all hosts in the inventory to
 ntp_clients_inventory_access: true

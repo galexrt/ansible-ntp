@@ -9,7 +9,6 @@ server {{ server }}
 {% for server in ntp_servers %}
 server {{ server }}
 {% endfor %}
-{% endif %}
 server 127.127.1.0
 fudge 127.127.1.0 stratum 10
 
@@ -17,10 +16,10 @@ disable monitor
 driftfile /var/lib/ntp/drift
 
 interface ignore wildcard
-{% if ntp_listen_on_v4 and hostvars[inventory_hostname].ansible_default_ipv4.address is defined %}
+{% if ntp_listen_on_default_v4 and hostvars[inventory_hostname].ansible_default_ipv4.address is defined %}
 interface listen {{ hostvars[inventory_hostname].ansible_default_ipv4.address }}
 {% endif %}
-{% if ntp_listen_on_v6 and hostvars[inventory_hostname].ansible_default_ipv6.address is defined %}
+{% if ntp_listen_on_default_v6 and hostvars[inventory_hostname].ansible_default_ipv6.address is defined %}
 interface listen {{ hostvars[inventory_hostname].ansible_default_ipv6.address }}
 {% endif %}
 
