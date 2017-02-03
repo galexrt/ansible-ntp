@@ -39,7 +39,7 @@ restrict {{ server }} nomodify notrap
 {% for server in ntp_clients %}
 restrict {{ server.name }}{% if server.access is defined %} {{ server.access }}{% endif %}
 {% endfor %}
-{% if ntp_custom_config is defined %}
+{% if ntp_custom_config is defined and ntp_custom_config|length > 0 %}
 
 {{ ntp_custom_config }}
 {% endif %}

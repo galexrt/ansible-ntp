@@ -23,3 +23,6 @@ ntp_driftfile_directory: "/var/lib/ntp"
 
 # for custom configuration
 ntp_custom_config: ""
+
+# TODO add firewalling tasks
+ntp_no_firewalling: true
