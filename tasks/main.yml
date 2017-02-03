@@ -8,7 +8,7 @@
    - ntp
   notify:
     - enable ntpd (rhel)
-    - enable ntp (deb)
+    - enable ntpd (deb)
   tags: install
 
 - name: Write ntp.conf
@@ -18,7 +18,7 @@
     mode: 0644
   notify:
     - restart ntpd (rhel)
-    - restart ntp (deb)
+    - restart ntpd (deb)
   tags: configure
 
 - name: Create ntp driftfile folder
