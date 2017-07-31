@@ -1,6 +1,6 @@
 ---
 language: python
-python: "2.7"
+python: '2.7'
 
 # Use the new container infrastructure
 sudo: false
@@ -20,6 +20,11 @@ install:
 
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../' >ansible.cfg
+  - echo '---' >tests/test.yml
+  - "echo '- hosts: localhost' >>tests/test.yml"
+  - "echo '  remote_user: root' >>tests/test.yml"
+  - "echo '  roles:' >>tests/test.yml"
+  - "echo '    - '\"$(basename '$TRAVIS_BUILD_DIR')\"'' >>tests/test.yml"
 
 script:
   # Basic role syntax check
