@@ -3,25 +3,25 @@
 - name: enable ntpd (rhel)
   service:
     name: ntpd
-    enabled: yes
+    enabled: true
   when: ansible_distribution != "Debian" and ansible_distribution != "Ubuntu"
 
 - name: enable ntpd (deb)
   service:
     name: ntp
-    enabled: yes
+    enabled: true
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
 - name: restart ntpd (rhel)
   service:
     name: ntpd
-    enabled: yes
+    enabled: true
     state: restarted
   when: ansible_distribution != "Debian" and ansible_distribution != "Ubuntu"
 
 - name: restart ntpd (deb)
   service:
     name: ntp
-    enabled: yes
+    enabled: true
     state: restarted
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
